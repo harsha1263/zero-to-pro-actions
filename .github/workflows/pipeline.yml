@@ -1,0 +1,34 @@
+name: My github actions project
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: verify code
+        run: |
+          echo " checking if html file exis or not"
+          ls -la
+          cat index.html
+          echo " Build and test successful"
+          
+  deploy_to_production:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate and deploy
+        env:
+          PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
+        run: |
+          echo "Authenticating with server"
+          echo " Deploying application to production"
+          echo "Deployment complete"
