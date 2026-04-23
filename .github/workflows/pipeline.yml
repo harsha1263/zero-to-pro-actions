@@ -7,12 +7,16 @@ on:
 
 jobs:
   build_and_test:
-    runs-on: ubuntu-latest
+    strategy: 
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: verify code
         run: |
+          echo "testing on ${{ matrix.os }}"
           echo " checking if html file exis or not"
           ls -la
           cat index.html
