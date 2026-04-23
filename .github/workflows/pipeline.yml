@@ -17,9 +17,6 @@ jobs:
       - name: verify code
         run: |
           echo "testing on ${{ matrix.os }}"
-          echo " checking if html file exis or not"
-          ls -la
-          cat index.html
           echo " Build and test successful"
           
   deploy_to_production:
